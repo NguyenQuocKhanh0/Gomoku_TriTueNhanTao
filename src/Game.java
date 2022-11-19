@@ -11,7 +11,6 @@ public class Game extends MainClass {
 	private Minimax ai;
 	public static final String cacheFile = "score_cache.ser";
 	private int winner; // 0: There is no winner yet, 1: AI Wins, 2: Human Wins
-	private int reset=0;
 	//private MainGUI gui;
 	private String string="--------------------------------Minimax Score-------------------------------\n";
 	public Game(Board board) {
@@ -20,10 +19,7 @@ public class Game extends MainClass {
 		
 		winner = 0;
 	}
-	public void Reset(){
-	//	this.winner=0;
-		this.reset=1;
-	}
+	
 	public void setBoard(Board board){
 		this.board = board;
 		this.ai = new Minimax(board);
@@ -48,13 +44,7 @@ public class Game extends MainClass {
 					isPlayersTurn = false;
 					// Handle the mouse click in another thread, so that we do not held the event dispatch thread busy.
 					Thread mouseClickThread = new Thread(new MouseClickHandler(arg0));
-					if(reset==1) {
-						mouseClickThread.interrupt();
-						board = new Board(400,15);
-						ai = new Minimax(board);
-						winner = 0;
-
-					};
+				
 					 mouseClickThread.start();
 					
 					
