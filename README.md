@@ -2,6 +2,6 @@
 
 Gameplay:
 
-![gameplay](https://github.com/canberkakcali/gomoku-ai-minimax/blob/master/images/gameplay-sample.png?raw=true)
+![gameplay](https://github.com/NguyenQuocKhanh0/Gomoku_TriTueNhanTao/edit/main/images/gameplay-sample.png?raw=true)
 
 
