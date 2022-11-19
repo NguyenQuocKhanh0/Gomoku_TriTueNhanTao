@@ -14,6 +14,10 @@ public class Board {
 		boardMatrix = new int[boardSize][boardSize];
 		
 	}
+	public void setBoard(int length, int size){
+		this.gui = new BoardGUI(length, size);
+		this.boardMatrix = new int[size][size];
+	}
 	// Fake copy constructor (only copies the boardMatrix)
 	public Board(Board board) {
 		int[][] matrixToCopy = board.getBoardMatrix();

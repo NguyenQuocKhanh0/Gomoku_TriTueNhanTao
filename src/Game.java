@@ -1,9 +1,8 @@
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-
-public class Game {
-
+public class Game extends MainClass {
+	
 	private Board board;
 	private boolean isPlayersTurn = true;
 	private boolean gameFinished = false;
@@ -12,13 +11,24 @@ public class Game {
 	private Minimax ai;
 	public static final String cacheFile = "score_cache.ser";
 	private int winner; // 0: There is no winner yet, 1: AI Wins, 2: Human Wins
-	
-	
+	private int reset=0;
+	//private MainGUI gui;
+	private String string="--------------------------------Minimax Score-------------------------------\n";
 	public Game(Board board) {
 		this.board = board;
 		ai = new Minimax(board);
 		
 		winner = 0;
+	}
+	public void Reset(){
+	//	this.winner=0;
+		this.reset=1;
+	}
+	public void setBoard(Board board){
+		this.board = board;
+		this.ai = new Minimax(board);
+		
+		this.winner = 0;
 	}
 	/*
 	 * 	Loads the cache and starts the game, enabling human player interactions.
@@ -38,7 +48,14 @@ public class Game {
 					isPlayersTurn = false;
 					// Handle the mouse click in another thread, so that we do not held the event dispatch thread busy.
 					Thread mouseClickThread = new Thread(new MouseClickHandler(arg0));
-					mouseClickThread.start();
+					if(reset==1) {
+						mouseClickThread.interrupt();
+						board = new Board(400,15);
+						ai = new Minimax(board);
+						winner = 0;
+
+					};
+					 mouseClickThread.start();
 					
 					
 				}
@@ -82,7 +99,10 @@ public class Game {
 			this.e = e;
 		}
 		public void run() {
-			if(gameFinished) return;
+			if(gameFinished) {
+				
+				return;
+			}
 			
 			// Find out which cell of the board do the clicked coordinates belong to.
 			 
@@ -121,7 +141,9 @@ public class Game {
 			playMove(aiMove[1], aiMove[0], false);
 			
 			System.out.println("Black: " + Minimax.getScore(board,true,true) + " White: " + Minimax.getScore(board,false,true));
+			string += "Black: " + Minimax.getScore(board,true,true) + " White: " + Minimax.getScore(board,false,true)+"\n";
 			
+			gui.writeLabel(string);
 			winner = checkWinner();
 			
 			if(winner == 1) {

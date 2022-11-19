@@ -40,7 +40,7 @@ public class BoardGUI extends JPanel {
 		g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 			 RenderingHints.VALUE_ANTIALIAS_ON);
 		
-		g2D.setColor(Color.yellow);
+		g2D.setColor(Color.GREEN);
 		g2D.fillRect(0,0,sideLength, sideLength);
 		
 		g2D.setColor(Color.black);
